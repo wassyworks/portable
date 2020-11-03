@@ -64,6 +64,14 @@ let g:winresizer_horiz_resize=3
 " タブライン表示有効化
 let g:airline#extensions#tabline#enabled=1
 
+" coc関連
+set hidden
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+
+
 " nerdtree
 let NERDTreeShowHidden=1
 nmap <Leader>e :NERDTree<CR>
