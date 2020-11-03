@@ -32,6 +32,9 @@ call plug#end()
 " 行数表示
 set number
 
+" シェル
+set sh=zsh
+
 " tab
 set tabstop=4
 set shiftwidth=4
@@ -81,3 +84,4 @@ nmap <leader>r :<C-u>exe('Gtags -r '.expand("<cword>"))<CR>
 nmap <leader>f :Gtags -f %<CR>
 nmap <leader>n :cn<CR>
 nmap <leader>p :cp<CR>
+
