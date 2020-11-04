@@ -85,3 +85,10 @@ nmap <leader>f :Gtags -f %<CR>
 nmap <leader>n :cn<CR>
 nmap <leader>p :cp<CR>
 
+" fzf mapping
+nmap <leader><c-f> :Files<CR>
+nmap <leader><c-F> :Files ~<CR>
+nmap <leader><c-b> :Buffers<CR>
+nmap <leader><c-s> :BLines<CR>
+nmap <leader><c-w> :Windows<CR>
+
