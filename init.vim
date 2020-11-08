@@ -97,20 +97,23 @@ nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<
 inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
+" terminal
+tnoremap <ESC> <C-\><C-n>
+
 " nerdtree
 let NERDTreeShowHidden=1
 nmap <Leader>e :NERDTree<CR>
 nmap <Leader>E :NERDTreeClose<CR>
 nmap <leader>g :<C-u>exe('Gtags '.expand("<cword>"))<CR>
 nmap <leader>r :<C-u>exe('Gtags -r '.expand("<cword>"))<CR>
-nmap <leader>f :Gtags -f %<CR>
+nmap <leader><c-g> :Gtags -f %<CR>
 nmap <leader>n :cn<CR>
 nmap <leader>p :cp<CR>
 
 " fzf mapping
-nmap <leader><c-f> :Files<CR>
-nmap <leader><c-F> :Files ~<CR>
-nmap <leader><c-b> :Buffers<CR>
+nmap <leader>f :Files<CR>
+nmap <leader><c-f> :Files ~<CR>
+nmap <leader>b :Buffers<CR>
 nmap <leader><c-s> :BLines<CR>
 nmap <leader><c-w> :Windows<CR>
 
