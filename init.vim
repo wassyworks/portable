@@ -12,7 +12,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ale
-Plug 'dense-analysis/ale'
+" 問題があるので一旦のコメントアウト
+" Plug 'dense-analysis/ale'
 
 " チートシート
 Plug 'reireias/vim-cheatsheet'
@@ -34,6 +35,9 @@ set number
 
 " シェル
 set sh=zsh
+
+" カレントディレクトリを自動で移動する
+set autochdir
 
 " tab
 set tabstop=4
@@ -67,12 +71,15 @@ let g:winresizer_horiz_resize=3
 " タブライン表示有効化
 let g:airline#extensions#tabline#enabled=1
 
+
 " coc関連
 set hidden
 set nowritebackup
 set cmdheight=2
 set updatetime=300
 set shortmess+=c
+" エラーが見づらいので背景カラーを変更
+hi CocFloating ctermbg=18
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
