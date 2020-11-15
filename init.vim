@@ -80,6 +80,7 @@ set updatetime=300
 set shortmess+=c
 " エラーが見づらいので背景カラーを変更
 hi CocFloating ctermbg=18
+hi CocErrorSign ctermfg=196
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
