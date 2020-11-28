@@ -100,9 +100,9 @@ inoremap <silient><expr> <TAB>
 " 補完トリガーキー
 inoremap <silent><expr> <C-l> coc#refresh()
 
-" Make <TAB> auto-select the first completion item and notify coc.nvim to
+" Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <TAB> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"   
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
