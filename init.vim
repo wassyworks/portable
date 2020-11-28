@@ -11,6 +11,13 @@ Plug 'junegunn/fzf.vim'
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" color
+Plug 'dracula/vim'
+Plug 'guns/xterm-color-table.vim'
+
+" cpp highlight
+Plug 'octol/vim-cpp-enhanced-highlight'
+
 " ale
 " 問題があるので一旦のコメントアウト
 " Plug 'dense-analysis/ale'
@@ -93,9 +100,9 @@ inoremap <silient><expr> <TAB>
 " 補完トリガーキー
 inoremap <silent><expr> <C-l> coc#refresh()
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
+" Make <TAB> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <TAB> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"   
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
@@ -125,3 +132,11 @@ nmap <leader>b :Buffers<CR>
 nmap <leader><c-s> :BLines<CR>
 nmap <leader><c-w> :Windows<CR>
 
+" cpp highlight
+" let g:cpp_class_scope_highlight = 1
+let g:cpp_class_decl_highlight = 1
+" dracula theme
+let g:dracula_italic = 0
+autocmd ColorScheme * highlight Comment ctermfg=110
+autocmd ColorScheme * highlight LineNr ctermfg=33
+colorscheme dracula
