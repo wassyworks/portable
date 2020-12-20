@@ -35,8 +35,6 @@ Plug 'vim-airline/vim-airline-themes'
 " text objects 操作系の拡張
 Plug 'wellle/targets.vim'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
 call plug#end()
 
 " 行数表示
@@ -145,15 +143,4 @@ autocmd ColorScheme * highlight LineNr ctermfg=33
 
 if wassy_utils#exists_colorscheme('dracula')
 	colorscheme dracula
-endif
-
-if wassy_utils#exists_plugin('nvim-treesitter')
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "clojure", "c_sharp", "graphql", "verilog", "ocamllex", "kotlin", "erlang", "fennel", "swift", "julia", "ocaml", "scala", "toml", "teal", "java", "dart", "nix", "tsx", "rst", "elm", "lua", "go", "ql",  "rust", "ruby", "vue" },  -- list of language that will be disabled
-  },
-}
-EOF
 endif
