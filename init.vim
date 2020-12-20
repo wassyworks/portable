@@ -9,7 +9,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " coc
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install_extension(['coc-python', 'coc-html', 'coc-css']) } }
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install_extension(['coc-pyright', 'coc-html', 'coc-css']) } }
 
 " color
 Plug 'dracula/vim'
