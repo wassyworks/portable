@@ -139,4 +139,8 @@ let g:cpp_class_decl_highlight = 1
 let g:dracula_italic = 0
 autocmd ColorScheme * highlight Comment ctermfg=110
 autocmd ColorScheme * highlight LineNr ctermfg=33
-colorscheme dracula
+
+
+if wassy_utils#exists_colorscheme('dracula')
+	colorscheme dracula
+endif
