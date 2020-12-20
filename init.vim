@@ -35,7 +35,7 @@ Plug 'vim-airline/vim-airline-themes'
 " text objects 操作系の拡張
 Plug 'wellle/targets.vim'
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
