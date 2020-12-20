@@ -1,6 +1,6 @@
-if exists('g:loaded_wassyutils')
-	finish
-endif
-let g:loaded_wassyutils = 1
+function! wassy_utils#exists_colorscheme(name) abort
+	let path = a:name.".vim"
+	return !exists(findfile(path, $HOME."/.config/nvim/**"))
+endfunction
 
 
