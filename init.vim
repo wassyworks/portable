@@ -9,7 +9,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " coc
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install_extension(['coc-pyright', 'coc-html', 'coc-css']) } }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " color
 Plug 'dracula/vim'
@@ -143,4 +143,9 @@ autocmd ColorScheme * highlight LineNr ctermfg=33
 
 if wassy_utils#exists_colorscheme('dracula')
 	colorscheme dracula
+endif
+
+" coc拡張がなかったらインストールする
+if wassy_utils#exists_coc_extension()
+	call coc#util#install_extension(['coc-pyright', 'coc-html', 'coc-css']) 
 endif

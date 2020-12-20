@@ -3,4 +3,8 @@ function! wassy_utils#exists_colorscheme(name) abort
 	return !empty(findfile(path, $HOME."/.config/nvim/**"))
 endfunction
 
+function! wassy_utils#exists_coc_extension() abort
+	return !empty(finddir('coc', $HOME."/.config/**"))
+endfunction
+
 
