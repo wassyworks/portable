@@ -146,6 +146,7 @@ if wassy_utils#exists_colorscheme('dracula')
 endif
 
 " coc拡張がなかったらインストールする
-if wassy_utils#exists_coc_extension()
-	call coc#util#install_extension(['coc-pyright', 'coc-html', 'coc-css']) 
+if !wassy_utils#exists_coc_extension()
+	au VimEnter * call coc#util#install_extension(['coc-pyright', 'coc-html', 'coc-css']) 
+	au VimEnter * call wassy_utils#make_coc_extension_stamp()
 endif
