@@ -35,6 +35,9 @@ Plug 'vim-airline/vim-airline-themes'
 " text objects 操作系の拡張
 Plug 'wellle/targets.vim'
 
+" 括弧に色付け
+Plug 'frazrepo/vim-rainbow'
+
 call plug#end()
 
 " 行数表示
@@ -150,3 +153,8 @@ if !wassy_utils#exists_coc_extension()
 	au VimEnter * call coc#util#install_extension(['coc-pyright', 'coc-html', 'coc-css']) 
 	au VimEnter * call wassy_utils#make_coc_extension_stamp()
 endif
+
+" rainbow
+au FileType c,cpp call rainbow#load()
+
+let g:rainbow_ctermfgs = ['lightblue',  'yellow', 'red', 'green',  'lightcyan', 'lightmagenta' ]
