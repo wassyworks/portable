@@ -42,7 +42,8 @@ Plug 'frazrepo/vim-rainbow'
 Plug 'tpope/vim-commentary'
 
 " markdown
-Plug 'skanehira/preview-markdown.vim'
+" Plug 'skanehira/preview-markdown.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -164,3 +165,6 @@ endif
 au FileType c,cpp call rainbow#load()
 
 let g:rainbow_ctermfgs = ['lightblue',  'yellow', 'red', 'green',  'lightcyan', 'lightmagenta' ]
+
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_port = 16300
