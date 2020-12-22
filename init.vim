@@ -38,6 +38,9 @@ Plug 'wellle/targets.vim'
 " 括弧に色付け
 Plug 'frazrepo/vim-rainbow'
 
+" コメント用
+Plug 'tpope/vim-commentary'
+
 call plug#end()
 
 " 行数表示
