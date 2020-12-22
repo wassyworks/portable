@@ -41,6 +41,9 @@ Plug 'frazrepo/vim-rainbow'
 " コメント用
 Plug 'tpope/vim-commentary'
 
+" markdown
+Plug 'skanehira/preview-markdown.vim'
+
 call plug#end()
 
 " 行数表示
