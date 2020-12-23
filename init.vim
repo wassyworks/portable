@@ -45,6 +45,9 @@ Plug 'tpope/vim-commentary'
 " Plug 'skanehira/preview-markdown.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
+" wiki
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
 
 " 行数表示
