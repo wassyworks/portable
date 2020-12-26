@@ -4,13 +4,23 @@ function! wassy_utils#exists_colorscheme(name) abort
 	return !empty(findfile(path, $HOME."/.vim/**"))
 endfunction
 
+function! wassy_utils#plug_install() abort
+	if empty(finddir('plugged', $HOME."/.vim/**"))
+		PlugInstall
+	endif
+endfunction
+
 function! wassy_utils#exists_coc_extension() abort
-	return !empty(findfile('coc_installed', $HOME."/.vim"))
+	if empty(finddir('coc.nvim', $HOME."/.vim/**"))
+		return 1
+	else
+		return !empty(findfile('coc_installed', $HOME."/.vim"))
+	endif
 endfunction
 
 function! wassy_utils#make_coc_extension_stamp() abort
 	let path = $HOME."/.vim/coc_installed"
-	 call system("touch ".path)
+	call system("touch ".path)
 endfunction
 
 
