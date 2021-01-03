@@ -1,3 +1,5 @@
+au VimEnter * call wassy_utils#plug_install()
+
 " プラグイン
 call plug#begin()
 
