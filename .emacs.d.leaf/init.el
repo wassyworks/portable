@@ -24,19 +24,55 @@
       (leaf-keywords-init)))
 
 ;; 設定
+
+;; 確認無しでバッファをrevert
+(defun ws-revert-buffer-without-confirmation ()
+  "Revert buffer without confirmation"
+  (interactive)
+  (revert-buffer t t)
+  (message "Reverted `%s'" (buffer-name))
+  )
+(global-set-key (kbd "C-c r") 'ws-revert-buffer-without-confirmation)
+
+;; バッファのLispコードを評価
+(global-set-key (kbd "C-c e") 'eval-buffer)
+
+;; 折り返しの切り替え
+(global-set-key (kbd "C-c t") 'toggle-truncate-lines)
+
+;; 行番号表示
 (global-display-line-numbers-mode t)
 ;; linum-modeは重いので切る
 (global-linum-mode -1)
 
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+;; タブ入力の代わりにスペースを使う
+(setq-default indent-tabs-mode t)
+;; タブ幅を4に設定
+(setq-default tab-width 4)
 
-;; フォント(windows)
+;; フォント/UI (windows)
 (when (eq system-type 'windows-nt)
+  (scroll-bar-mode -1)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
   (add-to-list 'default-frame-alist '(font . "Meiryo UI-12")))
+
+;; MacOS
+(when (eq system-type 'darwin)
+  (menu-bar-mode -1)
+  (tool-bar-mode -1)
+  (set-face-attribute 'default nil
+                    :family "Menlo"
+                    :height 160
+                    :weight 'normal
+                    :width 'normal)
+  )
+
 ;; ファイルサイズをモードラインに表示
 (size-indication-mode t)
+
+;; 閉じ括弧の自動入力
+(electric-pair-mode t)
 
 ;; 改行文字の文字列表現
 (set 'eol-mnemonic-dos "(CRLF)")
@@ -62,8 +98,9 @@
 
 (leaf files
   :doc "file input and output commands for Emacs"
-  :custom '((auto-save-defailt . nil)
-	    (make-backup-files . nil)))
+  :custom '((auto-save-defailt . nil) ; #file# のような自動保存ファイルを作らない
+	    (make-backup-files . nil) ; file~ のような自動バックアップファイルを作らない
+	    (create-lockfiles . nil))) ; .#file のようなロックファイルを作らない
 
 (leaf ivy
   :doc "Incremental vertical comletion"
@@ -85,6 +122,7 @@
     :bind (("C-S-s" . counsel-imenu)
 	   ("C-x C-r" . counsel-recentf))
     :global-minor-mode t))
+
 (leaf prescient
   :doc "Better sorting and filtering"
   :ensure t
@@ -97,10 +135,19 @@
   :ensure t
   :config (evil-mode t))
 
+(leaf company
+  :ensure t)
+
+;; javascript
+(leaf js2-mode
+  :ensure t
+  :mode "\\.js\\'"
+
+  )
 ;; web-mode
 (leaf web-mode
   :ensure t
-  :mode "\\.js\\'" "\\.php\\'"
+  :mode "\\.php\\'" "\\.ejs\\'"
   :config
   (setq web-mode-engines-alist
 	'(("php", "\\phtml\\'") ("blade", "\\.blade\\.")))
@@ -124,10 +171,59 @@
   (which-key-mode)
   )
 
+;; かっこの色付け
+(leaf rainbow-delimiters
+  :doc "rainbow colored paranthesis"
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  )
+
 (leaf magit
   :doc "git tool"
   :ensure t
   )
+(leaf org
+  :doc "latest org-mode"
+  :ensure t
+  )
+
+(leaf dockerfile-mode
+  :doc "dockerfile-mode"
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("Dockerfile*\\'" . dockerfile-mode))
+  )
+
+(leaf docker-compose-mode
+  :doc "docker-compose-mode"
+  :ensure t
+  )
+
+(leaf elpy
+  :doc "python development"
+  :ensure t
+  )
+(leaf rust-mode
+  :doc "rust mode"
+  :ensure t
+  :require t
+  :config (setq rust-format-on-save t)
+  )
+(leaf cmake-mode
+  :doc "cmake mode"
+  :ensure t
+  :require t
+  )
+
+(leaf markdown-mode
+  :doc "markdown"
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
 
 (leaf dracula-theme
   :doc "dracula theme"
@@ -138,29 +234,53 @@
   )
 (provide 'init)
 
-
-;; (custom-set-variables
-;;  ;; custom-set-variables was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(auto-revert-interval 1)
-;;  '(auto-save-defailt nil t)
-;;  '(custom-safe-themes
-;;    '("81c3de64d684e23455236abde277cda4b66509ef2c28f66e059aa925b8b12534" default))
-;;  '(ivy-initial-imputs-alist nil t)
-;;  '(ivy-use-selectable-prompt t)
-;;  '(make-backup-files nil)
-;;  '(package-archives
-;;    '(("org" . "https://orgmode.org/elpa/")
-;;      ("melpa" . "https://melpa.org/packages/")
-;;      ("gnu" . "https://elpa.gnu.org/packages/")))
-;;  '(package-selected-packages '(blackout el-get hydra leaf-keywords leaf))
-;;  '(show-paren-delay 0.1))
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(font-lock-comment-face ((t (:foreground "color-38"))))
-;;  '(minibuffer-prompt ((t (:foreground "brightcyan")))))
+(when (eq system-type 'windows-nt)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(auto-revert-interval 1)
+   '(auto-save-defailt nil t)
+   '(custom-safe-themes
+     '("81c3de64d684e23455236abde277cda4b66509ef2c28f66e059aa925b8b12534" default))
+   '(ivy-initial-imputs-alist nil t)
+   '(ivy-use-selectable-prompt t)
+   '(make-backup-files nil)
+   '(package-archives
+     '(("org" . "https://orgmode.org/elpa/")
+       ("melpa" . "https://melpa.org/packages/")
+       ("gnu" . "https://elpa.gnu.org/packages/")))
+   '(package-selected-packages '(blackout el-get hydra leaf-keywords leaf))
+   '(show-paren-delay 0.1))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(font-lock-comment-face ((t (:foreground "color-38"))))
+   '(minibuffer-prompt ((t (:foreground "brightcyan"))))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-revert-interval 1)
+ '(auto-save-defailt nil t)
+ '(create-lockfiles nil)
+ '(ivy-initial-imputs-alist nil t)
+ '(ivy-use-selectable-prompt t)
+ '(make-backup-files nil)
+ '(package-archives
+   '(("org" . "https://orgmode.org/elpa/")
+	 ("melpa" . "https://melpa.org/packages/")
+	 ("gnu" . "https://elpa.gnu.org/packages/")))
+ '(package-selected-packages
+   '(js2-mode which-key web-mode rust-mode rainbow-delimiters prescient markdown-mode magit leaf-keywords hydra evil elpy el-get dracula-theme dockerfile-mode docker-compose-mode counsel cmake-mode blackout))
+ '(show-paren-delay 0.1))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
