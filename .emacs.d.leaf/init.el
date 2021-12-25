@@ -136,7 +136,16 @@
   :config (evil-mode t))
 
 (leaf company
-  :ensure t)
+  :ensure t
+  :config
+  (global-company-mode) ; 全バッファで有効にする 
+  (setq company-idle-delay 0.1) ; デフォルトは0.5
+  (setq company-minimum-prefix-length 3) ; デフォルトは4
+  (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (define-key company-mode-map (kbd "C-,") 'company-complete)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  )
 
 ;; javascript
 (leaf js2-mode
@@ -225,13 +234,20 @@
 	 ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-(leaf dracula-theme
-  :doc "dracula theme"
+;; TypeScript
+(leaf typescript-mode
   :ensure t
-  :require t
-  :config
-  (load-theme 'dracula t)
+  :mode "\\.ts\\'"
   )
+
+;; theme
+; (leaf dracula-theme
+;   :doc "dracula theme"
+;   :ensure t
+;   :require t
+;   :config
+;   (load-theme 'dracula t)
+;   )
 (provide 'init)
 
 (when (eq system-type 'windows-nt)
@@ -276,7 +292,7 @@
 	 ("melpa" . "https://melpa.org/packages/")
 	 ("gnu" . "https://elpa.gnu.org/packages/")))
  '(package-selected-packages
-   '(js2-mode which-key web-mode rust-mode rainbow-delimiters prescient markdown-mode magit leaf-keywords hydra evil elpy el-get dracula-theme dockerfile-mode docker-compose-mode counsel cmake-mode blackout))
+   '(typescript-mode js2-mode which-key web-mode rust-mode rainbow-delimiters prescient markdown-mode magit leaf-keywords hydra evil elpy el-get dracula-theme dockerfile-mode docker-compose-mode counsel cmake-mode blackout))
  '(show-paren-delay 0.1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
