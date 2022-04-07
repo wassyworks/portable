@@ -195,6 +195,18 @@
 (leaf org
   :doc "latest org-mode"
   :ensure t
+  :mode "\\.org\\'"
+  :config
+  (setq org-startup-indented t)
+  (setq org-startup-folded 'content)
+  )
+
+(leaf evil-org
+  :doc "evil-mode key bindings to Emacs org-mode"
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
   )
 
 (leaf dockerfile-mode
@@ -241,13 +253,13 @@
   )
 
 ;; theme
-; (leaf dracula-theme
-;   :doc "dracula theme"
-;   :ensure t
-;   :require t
-;   :config
-;   (load-theme 'dracula t)
-;   )
+(leaf dracula-theme
+  :doc "dracula theme"
+  :ensure t
+  :require t
+  :config
+  (load-theme 'dracula t)
+  )
 (provide 'init)
 
 (when (eq system-type 'windows-nt)
@@ -284,6 +296,8 @@
  '(auto-revert-interval 1)
  '(auto-save-defailt nil t)
  '(create-lockfiles nil)
+ '(custom-safe-themes
+   '("81c3de64d684e23455236abde277cda4b66509ef2c28f66e059aa925b8b12534" default))
  '(ivy-initial-imputs-alist nil t)
  '(ivy-use-selectable-prompt t)
  '(make-backup-files nil)
@@ -299,4 +313,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(font-lock-comment-face ((t (:foreground "color-38"))))
+ '(minibuffer-prompt ((t (:foreground "brightcyan")))))
