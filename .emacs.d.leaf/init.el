@@ -86,6 +86,11 @@
 (global-set-key (kbd "M-?") 'help-command)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
+;; ファイル履歴保存数を拡張
+(setq recentf-max-saved-items 1000)
+(setq recentf-max-menu-items 15)
+(recentf-mode 1)
+
 (leaf autorevert
   :doc "revert buffers when files on disk changed"
   :custom ((auto-revert-interval . 1))
@@ -121,7 +126,10 @@
     :blackout t
     :bind (("C-S-s" . counsel-imenu)
 	   ("C-x C-r" . counsel-recentf))
-    :global-minor-mode t))
+  :global-minor-mode t)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  )
 
 (leaf prescient
   :doc "Better sorting and filtering"
