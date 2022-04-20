@@ -34,6 +34,9 @@
   )
 (global-set-key (kbd "C-c r") 'ws-revert-buffer-without-confirmation)
 
+;; 文字コード
+(prefer-coding-system 'utf-8-unix)
+
 ;; バッファのLispコードを評価
 (global-set-key (kbd "C-c e") 'eval-buffer)
 
