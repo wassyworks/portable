@@ -1,0 +1,47 @@
+" insert workman lower 
+inoremap e r
+inoremap r w
+inoremap w d
+inoremap t b
+inoremap y j
+inoremap u f
+inoremap i u
+inoremap o p
+inoremap ; i
+inoremap p ;
+inoremap d h
+inoremap h y
+inoremap f t
+inoremap j n
+inoremap k e
+inoremap l o
+inoremap n k
+inoremap c m
+inoremap v c
+inoremap b v
+inoremap m l
+
+
+" insert workman upper
+inoremap E R
+inoremap R W
+inoremap W D
+inoremap T B
+inoremap Y J
+inoremap U F
+inoremap I U
+inoremap O P
+inoremap : I
+inoremap P :
+inoremap D H
+inoremap H Y
+inoremap F T
+inoremap J N
+inoremap K E
+inoremap L O
+inoremap N K
+inoremap C M
+inoremap V C
+inoremap B V
+inoremap M L
+
