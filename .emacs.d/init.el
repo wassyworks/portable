@@ -43,6 +43,9 @@
 (global-set-key (kbd "M-?") 'help-command)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 
+;; file~ のような自動バックアップファイルを作らない
+(setq make-backup-files nil)
+
 ;; vim風味のモーダル編集機能を提供するパッケージ
 (use-package meow
   :ensure t
@@ -112,7 +115,27 @@
   (dashboard-setup-startup-hook) ;; 起動時にdashboardの画面を表示
   )
 
+;; org-roam
+(use-package org-roam
+  :ensure t
+  :bind
+  (("C-c n f" . org-roam-node-find) ; ノート検索
+   ("C-c n i" . org-roam-node-insert) ; ノートリンク挿入
+   ("C-c n c" . org-roam-capture) ; 新規ノート作成
+   )
+  :config
+  (let ((org-roam-dir "~/emacs-org-roam"))
+    (unless (file-directory-p org-roam-dir)
+      (make-directory )
+      )
+    (setq org-roam-directory (file-truename org-roam-dir))
+    )
+  (org-roam-db-autosync-mode) ; org-roamがキャッシュの一貫性を維持するため、ファイル保存時に関数を実行する
+  )
+
+;; テーマ設定 (内部)
 (load-theme 'modus-vivendi)
+;; テーマ設定 (外部)
 ;; (use-package kuronami-theme
 ;;   :ensure t
 ;;   :config
