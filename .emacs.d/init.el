@@ -2,49 +2,36 @@
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+;; パッケージを上手くインストールできない時はpackage-refresh-contentsを実行する
+;; (package-refresh-contents)
 
 ;; 設定
 (global-display-line-numbers-mode t)
 
+;; 上部のUIを非表示にする
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-;; ガベージコレクションのしきい値を設定
-(setq gc-cons-threshold (* 32 1024 1024))
+;; テーマ設定 (内部)
+(load-theme 'modus-vivendi)
+;; テーマ設定 (外部)
+;; (use-package kuronami-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'kuronami t)
+;;   )
 
-;; フォント(windows)
-(when (eq system-type 'windows-nt)
-  (add-to-list 'default-frame-alist '(font . "Moralerspace Neon-12"))
-  ;; (add-to-list 'default-frame-alist '(font . "Meiryo UI-12"))
+;; カスタムできるダッシュボード
+(use-package dashboard
+  :ensure t
+  :config
+  (setq dashboard-startup-banner 'logo) ;; dashboardのロゴを使用
+  (dashboard-setup-startup-hook) ;; 起動時にdashboardの画面を表示
   )
-;; ファイルサイズをモードラインに表示
-(size-indication-mode t)
 
-;; 閉じ括弧の自動入力
-(electric-pair-mode t)
-
-;; 改行文字の文字列表現
-(set 'eol-mnemonic-dos "(CRLF)")
-(set 'eol-mnemonic-unix "(LF)")
-(set 'eol-mnemonic-mac "(CR)")
-(set 'eol-mnemonic-undecided "(?)")
-
-;; 現在入力しているキーに続く候補をミニバッファに表示するwhich-key-modeを有効化
-(which-key-mode t)
-
-;; ミニバッファの履歴を保存する
-(savehist-mode 1)
-
-;; 前方検索
-(global-set-key (kbd "M-i") 'isearch-forward)
-;; ヘルプキーを変更し、代わりにbackspaceをC-hに割当
-(global-set-key (kbd "M-?") 'help-command)
-(global-set-key (kbd "C-h") 'delete-backward-char)
-
-;; file~ のような自動バックアップファイルを作らない
-(setq make-backup-files nil)
 
 ;; vim風味のモーダル編集機能を提供するパッケージ
 (use-package meow
@@ -90,6 +77,42 @@
    )
   )
 
+;; ガベージコレクションのしきい値を設定
+(setq gc-cons-threshold (* 32 1024 1024))
+
+;; フォント(windows)
+(when (eq system-type 'windows-nt)
+  (add-to-list 'default-frame-alist '(font . "Moralerspace Neon-12"))
+  ;; (add-to-list 'default-frame-alist '(font . "Meiryo UI-12"))
+  )
+;; ファイルサイズをモードラインに表示
+(size-indication-mode t)
+
+;; 閉じ括弧の自動入力
+(electric-pair-mode t)
+
+;; 改行文字の文字列表現
+(set 'eol-mnemonic-dos "(CRLF)")
+(set 'eol-mnemonic-unix "(LF)")
+(set 'eol-mnemonic-mac "(CR)")
+(set 'eol-mnemonic-undecided "(?)")
+
+;; 現在入力しているキーに続く候補をミニバッファに表示するwhich-key-modeを有効化
+(which-key-mode t)
+
+;; ミニバッファの履歴を保存する
+(savehist-mode 1)
+
+;; 前方検索
+(global-set-key (kbd "M-i") 'isearch-forward)
+;; ヘルプキーを変更し、代わりにbackspaceをC-hに割当
+(global-set-key (kbd "M-?") 'help-command)
+(global-set-key (kbd "C-h") 'delete-backward-char)
+
+;; file~ のような自動バックアップファイルを作らない
+(setq make-backup-files nil)
+
+
 (use-package magit
   :ensure t
   )
@@ -107,14 +130,6 @@
   (minibuffer-prompt-properties
    '(read-only t cursor-intangible t face minibuffer-prompt)))
 
-;; カスタムできるダッシュボード
-(use-package dashboard
-  :ensure t
-  :config
-  (setq dashboard-startup-banner 'logo) ;; dashboardのロゴを使用
-  (dashboard-setup-startup-hook) ;; 起動時にdashboardの画面を表示
-  )
-
 ;; org-roam
 (use-package org-roam
   :ensure t
@@ -126,21 +141,17 @@
   :config
   (let ((org-roam-dir "~/emacs-org-roam"))
     (unless (file-directory-p org-roam-dir)
-      (make-directory )
+      (make-directory org-roam-dir)
       )
     (setq org-roam-directory (file-truename org-roam-dir))
     )
   (org-roam-db-autosync-mode) ; org-roamがキャッシュの一貫性を維持するため、ファイル保存時に関数を実行する
   )
 
-;; テーマ設定 (内部)
-(load-theme 'modus-vivendi)
-;; テーマ設定 (外部)
-;; (use-package kuronami-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'kuronami t)
-;;   )
+
+;; タブ幅を4に設定
+(setq-default tab-width 4)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
