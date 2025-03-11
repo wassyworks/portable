@@ -77,9 +77,6 @@
    )
   )
 
-;; ガベージコレクションのしきい値を設定
-(setq gc-cons-threshold (* 32 1024 1024))
-
 ;; フォント(windows)
 (when (eq system-type 'windows-nt)
   (add-to-list 'default-frame-alist '(font . "Moralerspace Neon-12"))
@@ -90,6 +87,17 @@
 
 ;; 閉じ括弧の自動入力
 (electric-pair-mode t)
+(use-package paredit
+  :ensure t
+  :hook
+  (emacs-lisp-mode . paredit-mode) ; .elファイルでparedit-modeを有効にする
+  )
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook
+  (emacs-lisp-mode . rainbow-delimiters-mode) ; .elファイルでrainbow-delimiters-modeを有効にする
+  )
 
 ;; 改行文字の文字列表現
 (set 'eol-mnemonic-dos "(CRLF)")
@@ -152,6 +160,37 @@
 ;; タブ幅を4に設定
 (setq-default tab-width 4)
 
+;; 変更のあったファイルを自動再読み込み windowsだと正しく動かない…
+;; (global-auto-revert-mode 1)
+;; (setq auto-revert-interval 3)
+
+;; C-c rで確認無しでバッファをrevert
+(defun revert-buffer-without-confirmation ()
+  "Revert buffer without confirmation"
+  (interactive)
+  (revert-buffer t t)
+  (message "Reverted `%s'" (buffer-name))
+  )
+(global-set-key (kbd "C-c r") 'revert-buffer-without-confirmation)
+
+;; 補完ライブラリ
+(use-package company
+  :ensure t
+  :hook
+  (emacs-lisp-mode . company-mode) ; .elファイルでcompany-modeを有効にする
+  :config
+  ;; (global-company-mode) ; 全バッファで有効にする 
+  (setq company-idle-delay 0.1) ; デフォルトは0.5
+  (setq company-minimum-prefix-length 3) ; デフォルトは4
+  (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (define-key company-mode-map (kbd "C-,") 'company-complete)
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  )
+
+;; ガベージコレクションのしきい値を設定
+(setq gc-cons-threshold (* 64 1024 1024))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -164,3 +203,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
