@@ -9,10 +9,9 @@
   "キーボードレイアウトをColemakに切り替える"
   (set-input-method "english-colemak"))
 
-(defun meow-switch-to-japanese ()
-  "キーボードレイアウトを日本語に切り替える"
-  (set-input-method "japanese"))
-
+(defun meow-switch-to-default ()
+  "Input Methodを無効化"
+  (deactivate-input-method))
 
 (defun meow-replace-keys (state &rest keybinds)
   (declare (indent 1))
@@ -28,7 +27,7 @@
    '("<escape>" . ignore))
   ;; Meowのモード変更フックに関数を登録
   (add-hook 'meow-insert-enter-hook 'meow-switch-to-colemak)
-  (add-hook 'meow-insert-exit-hook 'meow-switch-to-japanese)
+  (add-hook 'meow-insert-exit-hook 'meow-switch-to-default)
   (meow-leader-define-key
    ;; Use SPC (0-9) for digit arguments.
    '("1" . meow-digit-argument)
