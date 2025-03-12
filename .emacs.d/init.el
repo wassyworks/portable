@@ -191,6 +191,10 @@
 ;; ガベージコレクションのしきい値を設定
 (setq gc-cons-threshold (* 64 1024 1024))
 
+;; magitのコミットメッセージ文字化け対策
+(set-buffer-file-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
