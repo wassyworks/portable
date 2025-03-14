@@ -15,6 +15,7 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+
 ;; テーマ設定 (内部)
 (load-theme 'modus-vivendi)
 ;; テーマ設定 (外部)
@@ -120,9 +121,10 @@
 ;; file~ のような自動バックアップファイルを作らない
 (setq make-backup-files nil)
 
-
 (use-package magit
   :ensure t
+  :custom
+  (magit-refresh-verbose t)
   )
 
 ;; Emacs minibuffer configurations.
@@ -177,12 +179,15 @@
 (use-package company
   :ensure t
   :hook
-  (emacs-lisp-mode . company-mode) ; .elファイルでcompany-modeを有効にする
-  :config
+  (emacs-lisp-mode . company-mode) ; .elファイルでcompany-modeを自動的に有効化する
+   :config
   ;; (global-company-mode) ; 全バッファで有効にする 
   (setq company-idle-delay 0.1) ; デフォルトは0.5
+  (setq company-tooltip-minimum-width 25) ; 表示文字数を増やす
+  (setq company-tooltip-maximum-width 60) ; 表示文字数を増やす
   (setq company-minimum-prefix-length 3) ; デフォルトは4
   (setq company-selection-wrap-around t) ; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (setq company-dabbrev-downcase nil)    ; 補完時にlower caseに変わってしまうのを防ぐ
   (define-key company-mode-map (kbd "C-,") 'company-complete)
   (define-key company-active-map (kbd "C-n") 'company-select-next)
   (define-key company-active-map (kbd "C-p") 'company-select-previous)
