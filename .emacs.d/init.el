@@ -87,7 +87,11 @@
 (size-indication-mode t)
 
 ;; 閉じ括弧の自動入力
-(electric-pair-mode t)
+(electric-pair-mode 1)
+
+;; 自動インデントの無効化
+(electric-indent-mode -1)
+
 (use-package paredit
   :ensure t
   :hook
