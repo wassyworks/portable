@@ -196,6 +196,19 @@
 ;; ガベージコレクションのしきい値を設定
 (setq gc-cons-threshold (* 64 1024 1024))
 
+
+;; recentf - 最近開いたファイルの履歴を保存・表示する機能
+;; C-x C-r でrecentfのリストを表示できる
+;; 履歴はデフォルトでは ~/.emacs.d/recentf に保存される
+(use-package recentf
+  :ensure nil			  ; 組み込みパッケージのため、インストール不要
+  :custom
+  (resentf-max-saved-items 100) ; 保存する最大ファイル件数
+  (recentf-exclude '("\.elc$")) ; 除外するファイル
+  :config
+  (recentf-mode 1)
+  )
+
 ;; magitのコミットメッセージ文字化け対策
 (set-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
