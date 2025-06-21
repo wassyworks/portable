@@ -207,7 +207,7 @@
 (use-package recentf
   :ensure nil			  ; 組み込みパッケージのため、インストール不要
   :custom
-  (resentf-max-saved-items 100) ; 保存する最大ファイル件数
+  (recentf-max-saved-items 3000) ; 保存する最大ファイル件数
   (recentf-exclude '("\.elc$")) ; 除外するファイル
   :config
   (recentf-mode 1)
@@ -216,6 +216,49 @@
 ;; magitのコミットメッセージ文字化け対策
 (set-buffer-file-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+
+;; 自作
+;; 連続する数字をカンマ区切りで挿入する関数
+(defun insert-number-sequence (start end)
+  "Insert a comma-separated sequence of numbers from START to END at point."
+  (interactive "nStart number: \nnEnd number: ")
+  (let* ((numbers (number-sequence start end))
+         (sequence (mapconcat #'number-to-string numbers ",")))
+    (insert sequence)))
+
+;; JST時間をUTC時間に変換する関数
+(defun jst-to-utc (jst-date-time)
+  "Convert JST date-time string to UTC.
+JST-DATE-TIME should be in format 'YYYY-MM-DD HH:MM:SS'.
+Returns the UTC date-time string in the same format."
+  (interactive "sJST date-time (YYYY-MM-DD HH:MM:SS): ")
+  (let* ((parsed-time (parse-time-string jst-date-time))
+         (decoded-time (encode-time parsed-time))
+         ;; JST is UTC+9, so subtract 9 hours (32400 seconds) to get UTC
+         (utc-time (time-subtract decoded-time (seconds-to-time (* 9 60 60))))
+         (utc-string (format-time-string "%Y-%m-%d %H:%M:%S" utc-time)))
+    (if (called-interactively-p 'any)
+        (progn
+          (insert utc-string)
+          (message "JST: %s → UTC: %s" jst-date-time utc-string))
+      utc-string)))
+
+;; UTC時間をJST時間に変換する関数
+(defun utc-to-jst (utc-date-time)
+  "Convert UTC date-time string to JST.
+UTC-DATE-TIME should be in format 'YYYY-MM-DD HH:MM:SS'.
+Returns the JST date-time string in the same format."
+  (interactive "sUTC date-time (YYYY-MM-DD HH:MM:SS): ")
+  (let* ((parsed-time (parse-time-string utc-date-time))
+         (decoded-time (encode-time parsed-time))
+         ;; JST is UTC+9, so add 9 hours (32400 seconds) to get JST
+         (jst-time (time-add decoded-time (seconds-to-time (* 9 60 60))))
+         (jst-string (format-time-string "%Y-%m-%d %H:%M:%S" jst-time)))
+    (if (called-interactively-p 'any)
+        (progn
+          (insert jst-string)
+          (message "UTC: %s → JST: %s" utc-date-time jst-string))
+      jst-string)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
