@@ -1,0 +1,60 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "e": ["editor::HandleInput", "f"],
+      "r": ["editor::HandleInput", "p"],
+      "t": ["editor::HandleInput", "g"],
+      "y": ["editor::HandleInput", "j"],
+      "u": ["editor::HandleInput", "l"],
+      "i": ["editor::HandleInput", "u"],
+      "o": ["editor::HandleInput", "y"],
+      "p": ["editor::HandleInput", ";"],
+
+      "s": ["editor::HandleInput", "r"],
+      "d": ["editor::HandleInput", "s"],
+      "f": ["editor::HandleInput", "t"],
+      "g": ["editor::HandleInput", "d"],
+      "j": ["editor::HandleInput", "n"],
+      "k": ["editor::HandleInput", "e"],
+      "l": ["editor::HandleInput", "i"],
+      ";": ["editor::HandleInput", "o"],
+
+      "n": ["editor::HandleInput", "k"],
+
+      "shift-e": ["editor::HandleInput", "F"],
+      "shift-r": ["editor::HandleInput", "P"],
+      "shift-t": ["editor::HandleInput", "G"],
+      "shift-y": ["editor::HandleInput", "J"],
+      "shift-u": ["editor::HandleInput", "L"],
+      "shift-i": ["editor::HandleInput", "U"],
+      "shift-o": ["editor::HandleInput", "Y"],
+      "shift-p": ["editor::HandleInput", ":"],
+
+      "shift-s": ["editor::HandleInput", "R"],
+      "shift-d": ["editor::HandleInput", "S"],
+      "shift-f": ["editor::HandleInput", "T"],
+      "shift-g": ["editor::HandleInput", "D"],
+      "shift-j": ["editor::HandleInput", "N"],
+      "shift-k": ["editor::HandleInput", "E"],
+      "shift-l": ["editor::HandleInput", "I"],
+      "shift-;": ["editor::HandleInput", "O"],
+
+      "shift-n": ["editor::HandleInput", "K"],
+      "ctrl-h": "editor::Backspace"
+    },
+  },
+]
